@@ -1,19 +1,15 @@
-import { Outlet, Link } from 'react-router-dom';
+/* eslint-disable react/no-unescaped-entities */
+import { Outlet } from "react-router-dom";
+import MainNav from "../components/MainNav";
 
 const Layout = () => {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Home</Link>
-          </li>
-          <li>
-            <Link to='/products'>Products</Link>
-          </li>
-        </ul>
-      </nav>
-      <Outlet />
+      <h1>Ceci n'est pas une ecommerce store</h1>
+      <MainNav />
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };
