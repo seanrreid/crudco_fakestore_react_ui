@@ -1,24 +1,33 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from "../pages/Layout";
-import Home from '../pages/Home';
-import Categories from '../pages/Categories';
-import Products from "../pages/Products";
+import Layout from '../pages/Layout';
+import Home from './Home';
+import Categories from './Categories';
+import Products, { loader as productsLoader } from './Products';
+import ErrorPage from '../pages/Error';
+import SingleProduct, { loader as singleProductLoader } from './SingleProduct';
 
 const Routes = () => {
   const router = createBrowserRouter([
     {
       element: <Layout />,
+      errorElement: <ErrorPage />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <Home />,
         },
         {
-          path: "/products",
+          path: '/products',
           element: <Products />,
+          loader: productsLoader,
         },
         {
-          path: "/categories",
+          path: '/products/:id',
+          element: <SingleProduct />,
+          loader: singleProductLoader,
+        },
+        {
+          path: '/categories',
           element: <Categories />,
         },
       ],
