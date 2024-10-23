@@ -5,6 +5,7 @@ import Categories from './Categories';
 import Products, { loader as productsLoader } from './Products';
 import ErrorPage from '../pages/Error';
 import SingleProduct, { loader as singleProductLoader } from './SingleProduct';
+import Registration, { action as registrationAction } from './Registration';
 
 const Routes = () => {
   const router = createBrowserRouter([
@@ -29,6 +30,11 @@ const Routes = () => {
         {
           path: '/categories',
           element: <Categories />,
+        },
+        {
+          path: '/register',
+          element: <Registration />,
+          action: registrationAction,
         },
       ],
     },

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import styles from "./Nav.module.css";
 
@@ -7,13 +7,16 @@ const MainNav = () => {
     <nav className={styles.nav}>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to='/'>Home</NavLink>
         </li>
         <li>
-          <Link to="/products">Products</Link>
+          <NavLink to='/products'>Products</NavLink>
         </li>
         <li>
-          <Link to="/categories">Categories</Link>
+          <NavLink to='/categories'>Categories</NavLink>
+        </li>
+        <li>
+          <NavLink to='/register'>Register</NavLink>
         </li>
       </ul>
     </nav>
