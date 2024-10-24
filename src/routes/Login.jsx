@@ -1,8 +1,10 @@
-import { Form } from 'react-router-dom';
+import { Form, useActionData } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAuth } from '../AuthContext';
 import { z } from 'zod';
 import supabase from '../supabase';
 
-const RegistrationSchema = z.object({
+const LoginSchema = z.object({
   email: z
     .string()
     .email('invalid-email')
@@ -12,7 +14,7 @@ const RegistrationSchema = z.object({
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const result = await RegistrationSchema.safeParseAsync({
+  const result = await LoginSchema.safeParseAsync({
     email: formData.get('username'),
     password: formData.get('password'),
   });
@@ -23,23 +25,36 @@ export const action = async ({ request }) => {
   }
 
   const { email, password } = result.data;
-  console.log('EMAIL AND PASSWORD: ', email, password);
-  console.log('TO BE CONTINUED!!!!');
-
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
-  console.log('DATA AND ERROR: ', data, error);
-  return null;
+  if (error) {
+    console.error('ERROR: ', error);
+  }
+
+  return data;
 };
 
-const Registration = () => {
+const Login = () => {
+  const data = useActionData();
+  const { setUser, setSession } = useAuth();
+
+  console.log('DATA: ', data);
+
+  useEffect(() => {
+    if (data?.user && data?.session) {
+      // This is where we add to the Auth Context
+      setUser(data.user);
+      setSession(data.session);
+    }
+  }, [data, setUser, setSession])
+
   return (
     <>
-      <h2>Register for cool stuff</h2>
-      <Form action='/register' method='POST'>
+      <h2>Login for cool stuff</h2>
+      <Form action='/login' method='POST'>
         <label>
           Your Email Address
           <input
@@ -60,10 +75,10 @@ const Registration = () => {
             required
           />
         </label>
-        <button type='submit'>Register</button>
+        <button type='submit'>Login</button>
       </Form>
     </>
   );
 };
 
-export default Registration;
+export default Login;
