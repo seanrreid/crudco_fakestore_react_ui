@@ -11,8 +11,8 @@ const AuthProvider = ({ children }) => {
   const updateSession = (access_token, user_id) => {
     setToken(access_token);
     setUser(user_id);
-    sessionStorage.setItem('sb-access-token', access_token);
-    sessionStorage.setItem('sb-user', user_id);
+    sessionStorage.setItem("sb-access-token", access_token);
+    sessionStorage.setItem("sb-user-id", user_id);
   };
 
   const clearSession = () => {

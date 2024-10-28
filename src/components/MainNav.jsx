@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import CartNotifier from './CartNotifier';
 
-import styles from './Nav.module.css';
+import styles from "./Nav.module.css";
 
 const MainNav = () => {
   const { user, token, logout } = useAuth();
@@ -19,13 +19,13 @@ const MainNav = () => {
     <nav className={styles.nav}>
       <ul>
         <li>
-          <NavLink to='/'>Home</NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink to='/products'>Products</NavLink>
+          <NavLink to="/products">Products</NavLink>
         </li>
         <li>
-          <NavLink to='/categories'>Categories</NavLink>
+          <NavLink to="/categories">Categories</NavLink>
         </li>
 
         <>
