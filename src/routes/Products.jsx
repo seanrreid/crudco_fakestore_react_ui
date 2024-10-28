@@ -15,7 +15,6 @@ const Products = () => {
   return (
     <>
       <h2>Products</h2>
-
       <ul className={styles.productList}>
         {products.map((product) => (
           <li key={product.id} className={styles.productCard}>
@@ -27,6 +26,7 @@ const Products = () => {
           </li>
         ))}
       </ul>
+
     </>
   );
 };
