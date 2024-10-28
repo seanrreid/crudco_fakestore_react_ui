@@ -41,13 +41,10 @@ const Login = () => {
   const data = useActionData();
   const { setUser, setSession } = useAuth();
 
-  console.log('DATA: ', data);
-
   useEffect(() => {
     if (data?.user && data?.session) {
-      // This is where we add to the Auth Context
-      setUser(data.user);
-      setSession(data.session);
+      setUser(data.user.id);
+      setSession(data.session.access_token);
     }
   }, [data, setUser, setSession])
 
