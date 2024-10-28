@@ -3,6 +3,8 @@
   width: 100vw;
 
   ul {
+    align-items: center;
+    border: none;
     display: flex;
     flex-direction: row;
     list-style: none;
@@ -11,7 +13,15 @@
   }
 
   ul li {
+    align-items: center;
+    display: flex;
     padding: 4px 8px;
     margin: 0 8px;
+    min-height: 56px;
+
+    &:before,
+    &:after {
+      border: none;
+    }
   }
 }

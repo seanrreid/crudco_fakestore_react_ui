@@ -1,6 +1,6 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
-import CartNotifier from './CartNotifier';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
+import CartNotifier from "./CartNotifier";
 
 import styles from "./Nav.module.css";
 
@@ -11,7 +11,7 @@ const MainNav = () => {
   const handleLogout = async () => {
     const { error } = await logout();
     if (!error) {
-      return navigate('/login');
+      return navigate("/login");
     }
   };
 
@@ -27,27 +27,25 @@ const MainNav = () => {
         <li>
           <NavLink to="/categories">Categories</NavLink>
         </li>
-
-        <>
-          {user && token ? (
+        {token && user ? (
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
+        ) : (
+          <>
             <li>
-              <button type='button' onClick={handleLogout}>
-                Logout
-              </button>
+              <NavLink to="/register">Register</NavLink>
             </li>
-          ) : (
-            <>
-              <li>
-                <NavLink to='/register'>Register</NavLink>
-              </li>
 
-              <li>
-                <NavLink to='/login'>Login</NavLink>
-              </li>
-            </>
-          )}
-        </>
-        <li><CartNotifier /></li>
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+          </>
+        )}
+
+        <li>
+          <CartNotifier />
+        </li>
       </ul>
     </nav>
   );
