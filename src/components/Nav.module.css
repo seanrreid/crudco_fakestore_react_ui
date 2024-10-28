@@ -25,3 +25,22 @@
     }
   }
 }
+
+.cartItems {
+  position: relative;
+}
+
+.itemCount {
+  align-items: center;
+  background: rgb(227, 228, 227);
+  border-radius: 50%;
+  bottom: -8px;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  height: 20px;
+  justify-content: center;
+  position: absolute;
+  right: -8px;
+  min-width: 20px;
+}
