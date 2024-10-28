@@ -30,6 +30,8 @@ const AuthProvider = ({ children }) => {
     return { error };
   };
 
+  // Helpful info for listening to Auth events
+  // https://supabase.com/docs/reference/javascript/auth-onauthstatechange
   useEffect(() => {
     const {
       data: { subscription },

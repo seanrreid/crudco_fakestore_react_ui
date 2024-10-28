@@ -1,20 +1,20 @@
-import { Form } from 'react-router-dom';
-import { z } from 'zod';
-import supabase from '../supabase';
+import { Form, useActionData, Navigate } from "react-router-dom";
+import { z } from "zod";
+import supabase from "../supabase";
 
 const RegistrationSchema = z.object({
   email: z
     .string()
-    .email('invalid-email')
+    .email("invalid-email")
     .transform((email) => email.toLowerCase()),
-  password: z.string().min(8, 'password-to-short'),
+  password: z.string().min(8, "password-to-short"),
 });
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const result = await RegistrationSchema.safeParseAsync({
-    email: formData.get('username'),
-    password: formData.get('password'),
+    email: formData.get("username"),
+    password: formData.get("password"),
   });
 
   if (!result.success) {
@@ -23,44 +23,47 @@ export const action = async ({ request }) => {
   }
 
   const { email, password } = result.data;
-  console.log('EMAIL AND PASSWORD: ', email, password);
-  console.log('TO BE CONTINUED!!!!');
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
 
-  console.log('DATA AND ERROR: ', data, error);
-  return null;
+  return { data, error };
 };
 
 const Registration = () => {
+  const registerData = useActionData();
+
+  if (registerData?.data && !registerData?.error) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <>
       <h2>Register for cool stuff</h2>
-      <Form action='/register' method='POST'>
+      <Form action="/register" method="POST">
         <label>
           Your Email Address
           <input
-            name='username'
-            type='email'
-            placeholder='you@supercoolhuman.com'
-            autoComplete='email'
+            name="username"
+            type="email"
+            placeholder="you@supercoolhuman.com"
+            autoComplete="email"
             required
           />
         </label>
         <label>
           Password
           <input
-            name='password'
-            type='password'
-            placeholder='s0m3HARD2GUESS!Passw0rd!'
-            autoComplete='password'
+            name="password"
+            type="password"
+            placeholder="s0m3HARD2GUESS!Passw0rd!"
+            autoComplete="password"
             required
           />
         </label>
-        <button type='submit'>Register</button>
+        <button type="submit">Register</button>
       </Form>
     </>
   );
