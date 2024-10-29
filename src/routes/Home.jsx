@@ -1,7 +1,8 @@
 const Home = () => {
   return (
     <>
-      <h1>Hello, this is home</h1>
+      <h1>Be Rad, Get Strange!</h1>
+      <img src="/rad.jpg" alt="Rad!" />
     </>
   );
 };

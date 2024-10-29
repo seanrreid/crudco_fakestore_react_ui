@@ -1,11 +1,14 @@
-const categories = [
-  "electronics",
-  "jewelery",
-  "men's clothing",
-  "women's clothing",
-];
+import { useLoaderData } from "react-router-dom";
+
+export const loader = async () => {
+  const apiUrl = `${import.meta.env.VITE_API_URL}/categories`;
+  const data = await fetch(apiUrl).then((response) => response.json());
+  return data;
+};
 
 const Categories = () => {
+  const categories = useLoaderData();
+
   return (
     <>
       <h2>Categories</h2>
