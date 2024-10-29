@@ -1,10 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 
 import styles from './Nav.module.css';
 
 const MainNav = () => {
-  const { user, session } = useAuth();
+  const { user, token, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await logout();
+    if (!error) {
+      return navigate('/login');
+    }
+  };
 
   return (
     <nav className={styles.nav}>
@@ -18,15 +26,26 @@ const MainNav = () => {
         <li>
           <NavLink to='/categories'>Categories</NavLink>
         </li>
-        <li>
-          <>
-            {!!user && !!session ? (
-              <NavLink to='/logout'>DON'T CLICK THIS</NavLink>
-            ) : (
-              <NavLink to='/register'>Register</NavLink>
-            )}
-          </>
-        </li>
+
+        <>
+          {user && token ? (
+            <li>
+              <button type='button' onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink to='/register'>Register</NavLink>
+              </li>
+
+              <li>
+                <NavLink to='/login'>Login</NavLink>
+              </li>
+            </>
+          )}
+        </>
       </ul>
     </nav>
   );

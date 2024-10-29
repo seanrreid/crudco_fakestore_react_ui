@@ -1,6 +1,4 @@
-import { Form, useActionData } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useAuth } from '../AuthContext';
+import { Form, useActionData, Navigate } from 'react-router-dom';
 import { z } from 'zod';
 import supabase from '../supabase';
 
@@ -39,14 +37,10 @@ export const action = async ({ request }) => {
 
 const Login = () => {
   const data = useActionData();
-  const { setUser, setSession } = useAuth();
 
-  useEffect(() => {
-    if (data?.user && data?.session) {
-      setUser(data.user.id);
-      setSession(data.session.access_token);
-    }
-  }, [data, setUser, setSession])
+  if (data) {
+    return <Navigate to='/' replace />;
+  }
 
   return (
     <>
