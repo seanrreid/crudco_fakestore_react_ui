@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import CartNotifier from './CartNotifier';
 
 import styles from './Nav.module.css';
 
@@ -46,6 +47,7 @@ const MainNav = () => {
             </>
           )}
         </>
+        <li><CartNotifier /></li>
       </ul>
     </nav>
   );
