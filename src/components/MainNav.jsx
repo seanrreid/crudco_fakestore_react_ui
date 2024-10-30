@@ -43,7 +43,9 @@ const MainNav = () => {
           </>
         )}
         <li>
-          <CartNotifier />
+          <NavLink to="/cart">
+            <CartNotifier />
+          </NavLink>
         </li>
       </ul>
     </nav>

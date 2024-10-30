@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useLoaderData, Link } from 'react-router-dom';
-import AddToCartBtn from '../components/AddToCartBtn';
-import styles from './Products.module.css';
+import { useLoaderData } from "react-router-dom";
+import ProductList from "../components/ProductList";
 
 export const loader = async () => {
   const apiUrl = `${import.meta.env.VITE_API_URL}/products`;
@@ -15,18 +14,7 @@ const Products = () => {
   return (
     <>
       <h2>Products</h2>
-      <ul className={styles.productList}>
-        {products.map((product) => (
-          <li key={product.id} className={styles.productCard}>
-            <Link to={`/products/${product.id}`}>
-              <h3>{product.title}</h3>
-              <img src={product.image} alt={product.title} />
-            </Link>
-            <AddToCartBtn product={product}/>
-          </li>
-        ))}
-      </ul>
-
+      <ProductList products={products} />
     </>
   );
 };
