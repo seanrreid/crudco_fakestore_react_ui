@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useCart } from '../CartContext';
+import { useEffect, useState } from "react";
+import { useCart } from "../CartContext";
+import ShoppingBag from "./ShoppingCart";
+
+import styles from "./Nav.module.css";
 
 const CartNotifier = () => {
   const [quantity, setQuantity] = useState(0);
@@ -11,10 +14,15 @@ const CartNotifier = () => {
         return acc + current.quantity;
       }, 0);
     };
-    setQuantity(getQuantity)
+    setQuantity(getQuantity);
   }, [cartItems]);
 
-  return <p>{quantity} Items in Cart</p>;
+  return (
+    <div className={styles.cartItems}>
+      <ShoppingBag />
+      <span className={styles.itemCount}>{quantity}</span>
+    </div>
+  );
 };
 
 export default CartNotifier;

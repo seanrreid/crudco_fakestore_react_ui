@@ -1,13 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { useCart } from "../CartContext";
-import ShoppingBag from "./ShoppingCart";
 
 import styles from "./Nav.module.css";
+import CartNotifier from "./CartNotifier";
 
 const MainNav = () => {
   const { token, user, logout } = useAuth();
-  const { cartItems } = useCart();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -45,10 +43,7 @@ const MainNav = () => {
           </>
         )}
         <li>
-          <div className={styles.cartItems}>
-            <ShoppingBag />
-            <span className={styles.itemCount}>{cartItems.length}</span>
-          </div>
+          <CartNotifier />
         </li>
       </ul>
     </nav>
