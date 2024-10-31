@@ -7,12 +7,14 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const updateSession = (access_token, user_id) => {
     setToken(access_token);
     setUser(user_id);
-    sessionStorage.setItem("sb-access-token", access_token);
-    sessionStorage.setItem("sb-user-id", user_id);
+    sessionStorage.setItem('sb-access-token', access_token);
+    sessionStorage.setItem('sb-user-id', user_id);
+    setIsLoading(false);
   };
 
   const clearSession = () => {
@@ -40,6 +42,9 @@ const AuthProvider = ({ children }) => {
       if (session) {
         updateSession(session.access_token, session.user.id);
       }
+      if (!session) {
+        setIsLoading(false);
+      }
       if (!session && event === 'SIGNED_OUT') {
         clearSession();
       }
@@ -51,7 +56,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, logout }}>
+    <AuthContext.Provider value={{ isLoading, user, token, logout }}>
       {children}
     </AuthContext.Provider>
   );
